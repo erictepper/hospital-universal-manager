@@ -399,7 +399,7 @@ values(10, 2000, '2018-03-02', 'P00000005', 'A-107', '2018-03-02 15:00');
 insert into PaymentforService
 values(11, 2150, '2018-07-06', 'P00000015', 'A-108', '2018-06-06 12:00');
 insert into PaymentforService
-values(12, 100, '2017-07-07', 'P00000014', 'A-002', '2017-07-0 14:30');
+values(12, 100, '2017-07-07', 'P00000014', 'A-002', '2017-07-07 14:30');
 insert into PaymentforService
 values(13, 100, '2016-10-22','P00000020', 'B-102', '2016-10-16 16:00');
 insert into PaymentforService
