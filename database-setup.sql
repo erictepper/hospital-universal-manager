@@ -28,9 +28,9 @@ CREATE TABLE Patient(
 
 CREATE TABLE ServiceBooking(
     RoomNumber CHAR(5),
-    DateOfIntake DATE,
+    DateOfIntake TIMESTAMP,
     PatientIDNumber CHAR(9) NOT NULL,
-    DateofDeparture DATE,
+    DateofDeparture TIMESTAMP,
     ReasonForVisit VARCHAR(40),
     Cost NUMERIC,
     PRIMARY KEY (RoomNumber, DateOfIntake),
@@ -49,7 +49,7 @@ CREATE TABLE HospitalStaff(
 CREATE TABLE StaffProvideService(
     StaffIDNumber CHAR(9),
     RoomNumber CHAR(5) NOT NULL,
-    DateofIntake DATE,
+    DateofIntake TIMESTAMP,
     PRIMARY KEY (StaffIDNumber, DateofIntake),
     FOREIGN KEY (RoomNumber, DateofIntake) REFERENCES ServiceBooking(RoomNumber, DateofIntake)
         ON DELETE CASCADE
@@ -70,7 +70,7 @@ CREATE TABLE ServiceStaffModifiesRecord(
     RecordNumber INT,
     StaffIDNumber CHAR(9) NOT NULL,
     RoomNumber CHAR(5),
-    DateOfIntake DATE,
+    DateOfIntake TIMESTAMP,
     PRIMARY KEY (PatientIDNumber, RecordNumber),
     FOREIGN KEY (PatientIDNumber) REFERENCES Patient(PatientIDNumber),
     FOREIGN KEY (PatientIDNumber, RecordNumber) REFERENCES MedicalRecord(PatientIDNumber, RecordNumber)
@@ -86,7 +86,7 @@ CREATE TABLE PaymentForService(
     PaymentDate DATE NOT NULL,
     PatientIDNumber CHAR(9) NOT NULL,
     RoomNumber CHAR(5) NOT NULL,
-    DateOfIntake DATE NOT NULL,
+    DateOfIntake TIMESTAMP NOT NULL,
     FOREIGN KEY (PatientIDNumber) REFERENCES Patient(PatientIDNumber),
     FOREIGN KEY (RoomNumber, DateOfIntake) REFERENCES ServiceBooking(RoomNumber, DateOfIntake)
         ON DELETE CASCADE
