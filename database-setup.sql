@@ -32,7 +32,7 @@ CREATE TABLE ServiceBooking(
     PatientIDNumber CHAR(9) NOT NULL,
     DateofDeparture DATE,
     ReasonForVisit VARCHAR(40),
-    Cost NUMBER,
+    Cost NUMERIC,
     PRIMARY KEY (RoomNumber, DateOfIntake),
     CONSTRAINT PatientService UNIQUE (PatientIDNumber, DateOfIntake),
     FOREIGN KEY (PatientIDNumber) REFERENCES Patient
