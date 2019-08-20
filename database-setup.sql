@@ -82,7 +82,7 @@ CREATE TABLE ServiceStaffModifiesRecord(
 
 CREATE TABLE PaymentForService(
     ReceiptNumber INT PRIMARY KEY,
-    PaymentAmount NUMBER NOT NULL,
+    PaymentAmount NUMERIC NOT NULL,
     PaymentDate DATE NOT NULL,
     PatientIDNumber CHAR(9) NOT NULL,
     RoomNumber CHAR(5) NOT NULL,
