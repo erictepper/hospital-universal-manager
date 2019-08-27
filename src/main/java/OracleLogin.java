@@ -1,18 +1,18 @@
 // We need to import the java.sql package to use JDBC
 import java.sql.*;
 
+// For reading from login info file.
+import java.io.*;
 
-// For reading from the command line
-// import java.io.*;
-
-// To create the interface
+// To create the interface.
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-// import java.util.*;
+import java.util.*;
+
 
 public class OracleLogin implements ActionListener {
-    // Connection to Oracle
+    // Connection to Heroku PostgreSQL
     private Connection con;
 
     // All other class-wide objects
@@ -22,9 +22,9 @@ public class OracleLogin implements ActionListener {
 
     private OracleLogin() {
         // Creates all of the interface panels
-        mainFrame = new JFrame("Oracle Login");
+        mainFrame = new JFrame("Heroku PostgreSQL Login");
         JPanel loginPanel = new JPanel();
-        JLabel oracleLabel = new JLabel("Oracle Login");
+        JLabel oracleLabel = new JLabel("Heroku PostgreSQL Login");
         JLabel usernameLabel = new JLabel("UserID");
         JLabel passwordLabel = new JLabel("Password");
         username = new JTextField(15);
@@ -66,17 +66,6 @@ public class OracleLogin implements ActionListener {
                 System.exit(0);
             }
         });
-
-
-        try {
-            // Load the Oracle JDBC driver
-            DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
-            // may be oracle.jdbc.driver.OracleDriver as of Oracle 11g
-        }
-        catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Message: " + ex.getMessage());
-            System.exit(-1);
-        }
     }
 
     public static void main(String[] args) {
@@ -84,12 +73,27 @@ public class OracleLogin implements ActionListener {
     }
 
     private boolean connect(String username, String password) {
-        String connectURL = "jdbc:oracle:thin:@dbhost.ugrad.cs.ubc.ca:1522:ug";
+        Properties loginInfo = new Properties();
 
+        // Loads the confidential db-login.ini file.
+        try {
+            InputStream loginFilePath = getClass().getResourceAsStream("db-login.ini");
+            loginInfo.load(loginFilePath);
+        } catch (Exception e) {
+            System.out.println(e);
+            System.exit(1);
+        }
+
+        // Reads the login info from the db-login.ini file.
+        String connectURL = loginInfo.getProperty("connectURL");
+        username = loginInfo.getProperty("username");
+        password = loginInfo.getProperty("password");
+
+        // Attempts to connect to the Heroku PostgreSQL database.
         try {
             con = DriverManager.getConnection(connectURL, username, password);
 
-            JOptionPane.showMessageDialog(null, "Connected to Oracle!");
+            JOptionPane.showMessageDialog(null, "Connected to Heroku PostgreSQL!");
             return true;
         }
         catch (SQLException ex) {
