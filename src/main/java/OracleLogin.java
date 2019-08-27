@@ -77,8 +77,8 @@ public class OracleLogin implements ActionListener {
 
         // Loads the confidential db-login.ini file.
         try {
-            InputStream loginFilePath = getClass().getResourceAsStream("db-login.ini");
-            loginInfo.load(loginFilePath);
+            InputStream loginFileStream = getClass().getResourceAsStream("db-login.ini");
+            loginInfo.load(loginFileStream);
         } catch (Exception e) {
             System.out.println(e);
             System.exit(1);
