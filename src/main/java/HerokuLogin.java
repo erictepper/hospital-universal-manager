@@ -12,7 +12,7 @@ import java.util.*;
 
 
 public class HerokuLogin implements ActionListener {
-    // Connection to Heroku PostgreSQL
+    // Connection to Heroku
     private Connection con;
 
     // All other class-wide objects
@@ -22,9 +22,9 @@ public class HerokuLogin implements ActionListener {
 
     private HerokuLogin() {
         // Creates all of the interface panels
-        mainFrame = new JFrame("Heroku PostgreSQL Login");
+        mainFrame = new JFrame("Heroku Login");
         JPanel loginPanel = new JPanel();
-        JLabel oracleLabel = new JLabel("Heroku PostgreSQL Login");
+        JLabel oracleLabel = new JLabel("Heroku Login");
         JLabel usernameLabel = new JLabel("UserID");
         JLabel passwordLabel = new JLabel("Password");
         username = new JTextField(15);
