@@ -1,1 +1,1 @@
-worker: java $JAVA_OPTS -cp target/classes:target/dependency/* OracleLogin
+worker: java $JAVA_OPTS -cp target/classes:target/dependency/* HerokuLogin

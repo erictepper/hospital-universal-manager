@@ -79,7 +79,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>OracleLogin</mainClass>
+              <mainClass>HerokuLogin</mainClass>
             </manifest>
           </archive>
         </configuration>

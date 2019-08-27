@@ -11,7 +11,7 @@ import java.awt.event.*;
 import java.util.*;
 
 
-public class OracleLogin implements ActionListener {
+public class HerokuLogin implements ActionListener {
     // Connection to Heroku PostgreSQL
     private Connection con;
 
@@ -20,7 +20,7 @@ public class OracleLogin implements ActionListener {
     private JTextField username;
     private JPasswordField password;
 
-    private OracleLogin() {
+    private HerokuLogin() {
         // Creates all of the interface panels
         mainFrame = new JFrame("Heroku PostgreSQL Login");
         JPanel loginPanel = new JPanel();
@@ -69,7 +69,7 @@ public class OracleLogin implements ActionListener {
     }
 
     public static void main(String[] args) {
-        new OracleLogin();
+        new HerokuLogin();
     }
 
     private boolean connect(String username, String password) {
