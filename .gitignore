@@ -3,3 +3,6 @@
 
 # Build files
 target/
+
+# Confidential Login Info
+src/main/resources/db-login.ini
