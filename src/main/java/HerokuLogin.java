@@ -97,7 +97,7 @@ public class HerokuLogin implements ActionListener {
             return true;
         }
         catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Message: " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Message: " + ex.toString());
             return false;
         }
     }
