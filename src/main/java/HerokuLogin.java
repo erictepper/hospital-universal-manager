@@ -80,8 +80,8 @@ public class HerokuLogin implements ActionListener {
             InputStream loginFileStream = getClass().getResourceAsStream("db-login.ini");
             loginInfo.load(loginFileStream);
         } catch (Exception e) {
-            System.out.println(e);
-            System.exit(1);
+            JOptionPane.showMessageDialog(null, "Message: " + e.toString());
+            return false;
         }
 
         // Reads the login info from the db-login.ini file.
