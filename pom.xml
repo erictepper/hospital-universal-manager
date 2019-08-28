@@ -58,8 +58,7 @@
     <dependency>
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
-      <version>42.2.6.jre7</version>
-      <type>bundle</type>
+      <version>42.2.6</version>
     </dependency>
   </dependencies>
 
@@ -80,6 +79,8 @@
           <archive>
             <manifest>
               <mainClass>HerokuLogin</mainClass>
+              <addClasspath>true</addClasspath>
+              <classpathPrefix>dependency/</classpathPrefix>
             </manifest>
           </archive>
         </configuration>
