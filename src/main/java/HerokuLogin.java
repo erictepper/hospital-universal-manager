@@ -81,7 +81,7 @@ public class HerokuLogin implements ActionListener {
             loginInfo.load(loginFileStream);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "The file containing " +
-                "the database login info (db-login.ini) was not found in the resources folder.");
+                "the Heroku database login info (db-login.ini) was not found in the resources folder.");
             return false;
         }
 
