@@ -3,12 +3,12 @@ import java.sql.*;
 
 // For reading from login info file.
 import java.io.*;
+import java.util.*;
 
 // To create the interface.
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.*;
 
 
 public class HerokuLogin implements ActionListener {
