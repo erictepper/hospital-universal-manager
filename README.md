@@ -6,6 +6,9 @@ This project is a revitalized version of a project done for course CPSC 304 (Rel
 Application created in collaboration with [Cecilia Mesquita](https://github.com/ceci96p). 
 
 ### To-do
+###### Features to Add
 1. Build application into a single .jar using Maven. 
-2. Fix "Patients scheduled for all services" query under the StaffView. 
-3. Fix StringIndexOutOfBoundsException when no columns are selected under StaffView.searchRecords().
+
+###### Bugs to Fix
+1. Fix "Patients scheduled for all services" query under the StaffView. 
+2. Fix StringIndexOutOfBoundsException when no columns are selected under StaffView.searchRecords().
