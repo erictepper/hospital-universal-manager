@@ -7,3 +7,4 @@ Application created in collaboration with [Cecilia Mesquita](https://github.com/
 
 ### To-do
 1. Build application into a single .jar using Maven. 
+2. Fix "Patients scheduled for all services" query under the Staff View. 
