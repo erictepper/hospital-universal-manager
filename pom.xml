@@ -67,6 +67,7 @@
       <resource>
         <directory>${project.basedir}/src/main/resources</directory>
         <excludes>
+          <exclude>postgresql-42.2.6.jar</exclude>
         </excludes>
       </resource>
     </resources>
