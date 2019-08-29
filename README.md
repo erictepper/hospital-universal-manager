@@ -7,7 +7,7 @@ Application created in collaboration with [Cecilia Mesquita](https://github.com/
 
 ### To-do
 ###### Features to Add
-No current features to add. 
+1. Remove HerokuLogin class and connect directly to the database from Login class. 
 
 ###### Bugs to Fix
 1. Fix "Patients scheduled for all services" query under the StaffView. 
