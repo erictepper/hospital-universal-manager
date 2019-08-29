@@ -7,7 +7,7 @@ Application created in collaboration with [Cecilia Mesquita](https://github.com/
 
 ### To-do
 ###### Features to Add
-1. Build application into a single .jar using Maven. 
+No current features to add. 
 
 ###### Bugs to Fix
 1. Fix "Patients scheduled for all services" query under the StaffView. 
