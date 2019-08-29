@@ -364,7 +364,7 @@ class StaffView implements ActionListener {
                     ResultSet.CONCUR_READ_ONLY);
             ResultSet neediestPatientResults = neediestPatientsStatement.executeQuery("SELECT " +
                     "p.PatientIDNumber, p.PatientName FROM Patient p WHERE NOT EXISTS " +
-                    "((SELECT v.ReasonForVisit FROM ServiceBooking v) MINUS " +
+                    "((SELECT v.ReasonForVisit FROM ServiceBooking v) EXCEPT " +
                     "(SELECT s.ReasonForVisit FROM ServiceBooking s " +
                     "WHERE s.PatientIDNumber = p.PatientIDNumber))");
 
