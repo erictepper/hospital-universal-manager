@@ -20,8 +20,6 @@ public class HerokuLogin implements ActionListener {
     private JTextField username;
     private JPasswordField password;
 
-    // Test commit
-
     private HerokuLogin() {
         // Creates all of the interface panels
         mainFrame = new JFrame("Heroku Login");
