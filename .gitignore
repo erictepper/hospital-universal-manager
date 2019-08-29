@@ -6,3 +6,6 @@ target/
 
 # Confidential Login Info
 src/main/resources/db-login.ini
+
+# Concept files
+src/main/resources/Login\ Screen\ Sketch.png
