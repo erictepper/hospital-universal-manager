@@ -22,8 +22,6 @@ public class Login implements ActionListener {
 
 
     Login() {
-
-
         // Creates all of the interface panels
         mainFrame = new JFrame("User Login");
         JPanel loginPanel = new JPanel();
@@ -71,6 +69,16 @@ public class Login implements ActionListener {
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setVisible(true);
 
+        if (!connect()) {
+            JOptionPane.showMessageDialog(null, "Connection to Heroku database failed!");
+            try {
+                java.util.concurrent.TimeUnit.SECONDS.sleep(10);
+                System.exit(1);
+            } catch (InterruptedException e) {
+                System.exit(1);
+            }
+        }
+
         // anonymous inner class for closing the window
         mainFrame.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
@@ -88,7 +96,7 @@ public class Login implements ActionListener {
         new Login();
     }
 
-    private boolean connect(String username, String password) {
+    private boolean connect() {
         Properties loginInfo = new Properties();
 
         // Loads the confidential db-login.ini file.
@@ -103,14 +111,12 @@ public class Login implements ActionListener {
 
         // Reads the login info from the db-login.ini file.
         String connectURL = loginInfo.getProperty("connectURL");
-        username = loginInfo.getProperty("username");
-        password = loginInfo.getProperty("password");
+        String username = loginInfo.getProperty("username");
+        String password = loginInfo.getProperty("password");
 
         // Attempts to connect to the Heroku PostgreSQL database.
         try {
             con = DriverManager.getConnection(connectURL, username, password);
-
-            JOptionPane.showMessageDialog(null, "Connected to Heroku PostgreSQL!");
             return true;
         }
         catch (SQLException ex) {
