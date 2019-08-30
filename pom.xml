@@ -80,7 +80,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>HerokuLogin</mainClass>
+              <mainClass>Login</mainClass>
             </manifest>
           </archive>
           <descriptorRefs>
