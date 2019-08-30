@@ -25,7 +25,7 @@ the PostgreSQL driver in order to access the database.
 1. Add logout option to PatientView, RecepView, and StaffView. 
 2. Change log-in interface. 
 3. Use regular expressions to evaluate whether user is Patient, Staff, or Receptionist (rather than 
-using a drop-down box). 
+using a drop-down box) on the log-in view. 
 
 ###### Bugs to Fix
 1. Fix "Patients scheduled for all services" query under the StaffView. 
