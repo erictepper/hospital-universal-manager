@@ -13,7 +13,7 @@ Application created in collaboration with [Cecilia Mesquita](https://github.com/
 **Version 0:** Created application from-scratch during a University course, using university servers to host the database and Oracle 
 as the relational database management system. 
 
-**Version 0.1:** Re-hosted application on the Heroku PaaS and used PostgreSQL as the relational database management 
+**Version 0.1:** Re-hosted application on the Salesforce Heroku PaaS and used PostgreSQL as the relational database management 
 system, since the previously-used university server was not accessible after the course was over. Installed the 
 PostgreSQL driver in order to access the database. 
 
