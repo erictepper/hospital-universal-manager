@@ -1,12 +1,14 @@
 // We need to import the java.sql package to use JDBC
 import java.sql.*;
 
+// For reading from login info file.
+import java.io.*;
+import java.util.*;
 
-// To create the interface
+// To create the interface.
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-// import java.util.*;
 
 public class Login implements ActionListener {
     // Connection to Oracle
@@ -19,8 +21,8 @@ public class Login implements ActionListener {
     private JPasswordField password;
 
 
-    Login(Connection inputConnection) {
-        con = inputConnection;
+    Login() {
+
 
         // Creates all of the interface panels
         mainFrame = new JFrame("User Login");
@@ -84,6 +86,37 @@ public class Login implements ActionListener {
 
     public static void main(String[] args) {
         new Login();
+    }
+
+    private boolean connect(String username, String password) {
+        Properties loginInfo = new Properties();
+
+        // Loads the confidential db-login.ini file.
+        try {
+            InputStream loginFileStream = getClass().getResourceAsStream("db-login.ini");
+            loginInfo.load(loginFileStream);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "The file containing " +
+                "the Heroku database login info (db-login.ini) was not found in the resources folder.");
+            return false;
+        }
+
+        // Reads the login info from the db-login.ini file.
+        String connectURL = loginInfo.getProperty("connectURL");
+        username = loginInfo.getProperty("username");
+        password = loginInfo.getProperty("password");
+
+        // Attempts to connect to the Heroku PostgreSQL database.
+        try {
+            con = DriverManager.getConnection(connectURL, username, password);
+
+            JOptionPane.showMessageDialog(null, "Connected to Heroku PostgreSQL!");
+            return true;
+        }
+        catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Message: " + ex.toString());
+            return false;
+        }
     }
 
     private String login(String userType, String username, String password) {
