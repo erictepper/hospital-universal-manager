@@ -82,6 +82,10 @@ public class Login implements ActionListener {
         });
     }
 
+    public static void main(String[] args) {
+        new Login();
+    }
+
     private String login(String userType, String username, String password) {
         Statement getLoginInfoForUser;
         ResultSet resultLoginInfo;
