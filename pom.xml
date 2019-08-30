@@ -62,6 +62,7 @@
           <exclude>postgresql-42.2.6.jar</exclude>
           <exclude>database-setup.sql</exclude>
           <exclude>er-diagram.jpg</exclude>
+          <exclude>Login Screen Sketch.png</exclude>
         </excludes>
       </resource>
     </resources>
