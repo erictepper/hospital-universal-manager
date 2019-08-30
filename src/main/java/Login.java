@@ -21,7 +21,7 @@ public class Login implements ActionListener {
     private JPasswordField password;
 
 
-    private Login() {
+    Login(Connection inputConnection) {
         // Creates all of the interface panels
         mainFrame = new JFrame("User Login");
         JPanel loginPanel = new JPanel();
@@ -69,9 +69,17 @@ public class Login implements ActionListener {
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setVisible(true);
 
-        if (!connect()) {
-            JOptionPane.showMessageDialog(null, "Connection to Heroku database failed!");
-            System.out.println("Connection to Heroku database failed!");
+        try {
+            if (inputConnection != null && inputConnection.isValid(0)) {
+                this.con = inputConnection;
+            } else if (!connect()) {
+                JOptionPane.showMessageDialog(null, "Connection to Heroku database failed!");
+                System.out.println("Connection to Heroku database failed!");
+                System.exit(1);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Message: " + e.getMessage());
+            System.out.println("Message: " + e.getMessage());
             System.exit(1);
         }
 
@@ -89,7 +97,7 @@ public class Login implements ActionListener {
     }
 
     public static void main(String[] args) {
-        new Login();
+        new Login(null);
     }
 
     private boolean connect() {
