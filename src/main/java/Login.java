@@ -71,7 +71,9 @@ public class Login implements ActionListener {
 
         if (!connect()) {
             JOptionPane.showMessageDialog(null, "Connection to Heroku database failed!");
+            System.out.println("Connection to Heroku database failed!");
             try {
+                // Waits ten seconds before exiting the program.
                 java.util.concurrent.TimeUnit.SECONDS.sleep(10);
                 System.exit(1);
             } catch (InterruptedException e) {
