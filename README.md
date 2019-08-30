@@ -22,7 +22,7 @@ PostgreSQL driver in order to access the database.
 
 ### To-do
 ###### Features to Add
-1. Remove HerokuLogin class and connect directly to the database from Login class. 
+1. Add logout option to PatientView, RecepView, and StaffView. 
 
 ###### Bugs to Fix
 1. Fix "Patients scheduled for all services" query under the StaffView. 
