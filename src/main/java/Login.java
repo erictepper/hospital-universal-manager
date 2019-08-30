@@ -21,7 +21,7 @@ public class Login implements ActionListener {
     private JPasswordField password;
 
 
-    Login() {
+    private Login() {
         // Creates all of the interface panels
         mainFrame = new JFrame("User Login");
         JPanel loginPanel = new JPanel();
