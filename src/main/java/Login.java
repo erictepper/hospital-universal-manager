@@ -69,7 +69,7 @@ public class Login implements ActionListener {
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setVisible(true);
 
-        // Use the input connection if it is valid, or create a new connection. 
+        // Use the input connection if it is valid, otherwise create a new connection.
         try {
             if (inputConnection != null && inputConnection.isValid(0)) {
                 this.con = inputConnection;
