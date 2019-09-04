@@ -16,6 +16,7 @@ class RecepView implements ActionListener {
     private String recepID;
 
     // Initializes all class-wide interface panels
+    private JFrame mainFrame;
     private JPasswordField updatePasswordInput;
     private JTextField medicalRecordsPatientIDInput;
     private JCheckBox showMedicalRecordNumberCheckbox;
@@ -48,7 +49,7 @@ class RecepView implements ActionListener {
         }
 
         /* CREATES THE INTERFACE */
-        JFrame mainFrame = new JFrame("Receptionist View");
+        mainFrame = new JFrame("Receptionist View");
         JPanel recepViewPanel = new JPanel();
 
         // Creates user info labels
@@ -76,6 +77,7 @@ class RecepView implements ActionListener {
         showMedicalRecordAllCheckbox = new JCheckBox();
         JLabel showMedicalRecordAllLabel = new JLabel("All");
         JButton searchMedicalRecordsButton = new JButton("Search");
+        JButton logoutButton = new JButton("Logout");
 
         // Creates the employment statistics objects
         JLabel employmentStatisticsLabel = new JLabel("EMPLOYMENT STATISTICS");
@@ -144,6 +146,9 @@ class RecepView implements ActionListener {
         showMedicalRecordAllCheckbox.setActionCommand("showAllPress");
         showMedicalRecordAllLabel.setFont(checkBoxLabelFont);
         showMedicalRecordAllLabel.setBounds(365, 250, 20, 20);
+        logoutButton.setBounds(580, 30, 80, 20);
+        logoutButton.addActionListener(this);
+        logoutButton.setActionCommand("logout");
 
         // Employment Statistics
         employmentStatisticsLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 14));
@@ -160,6 +165,7 @@ class RecepView implements ActionListener {
         averageStaffNumberPerPosition.setBounds(32, 405, 250, 20);
         averageStaffNumberPerPosition.addActionListener(this);
         averageStaffNumberPerPosition.setActionCommand("getAverageStaff");
+
 
         serviceBooking.setBounds(600, 440, 80, 20);
         serviceBooking.addActionListener(this);
@@ -200,7 +206,7 @@ class RecepView implements ActionListener {
         recepViewPanel.add(mostOverstaffedPosition);
         recepViewPanel.add(averageStaffNumberPerPosition);
 
-        recepViewPanel.add(serviceBooking);
+        recepViewPanel.add(logoutButton);
 
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setVisible(true);
@@ -272,6 +278,10 @@ class RecepView implements ActionListener {
             case "openServiceBooking":
                 if (serviceBookingView != null) { return; }
                 else { serviceBookingView = new ServiceBookingView(); }
+                break;
+
+            case "logout":
+                goToLogin();
                 break;
         }
     }
@@ -472,15 +482,15 @@ class RecepView implements ActionListener {
 
             // Book new service
             JLabel bookNewServiceLabel = new JLabel("BOOK NEW SERVICE");
-            String[] serviceCategories = { "Service Category", "--------", "Appointment", "Maternity", "ER",
-                    "Surgery" };
+            String[] serviceCategories = {"Service Category", "--------", "Appointment", "Maternity", "ER",
+                    "Surgery"};
             createServiceType = new JComboBox<>(serviceCategories);
             JLabel createServicePatientIDLabel = new JLabel("Patient ID:");
             createServicePatientIDInput = new JTextField(9);
             JLabel createServiceDateLabel = new JLabel("Date:");
             createServiceDateInput = new JTextField(19);
-            String[] roomNumbers = { "Room #", "--------", "A-001", "A-002", "A-101", "A-107", "A-108", "B-102",
-                    "F-023", "G-302", "G-333" };
+            String[] roomNumbers = {"Room #", "--------", "A-001", "A-002", "A-101", "A-107", "A-108", "B-102",
+                    "F-023", "G-302", "G-333"};
             createServiceRoomNumberInput = new JComboBox<>(roomNumbers);
             JLabel createServiceStaffIDLabel = new JLabel("Staff ID:");
             createServiceStaffIDInput = new JTextField(9);
@@ -524,7 +534,7 @@ class RecepView implements ActionListener {
             createServiceDateLabel.setBounds(395, 95, 45, 20);
             createServiceDateInput.setBounds(430, 90, 150, 30);
             createServiceRoomNumberInput.setBounds(580, 90, 100, 30);
-            createServiceStaffIDLabel.setBounds(35 ,123, 55,20);
+            createServiceStaffIDLabel.setBounds(35, 123, 55, 20);
             createServiceStaffIDInput.setBounds(90, 118, 120, 30);
             createServiceDepartureDateLabel.setBounds(220, 123, 105, 20);
             createServiceDepartureDateInput.setBounds(325, 118, 150, 30);
@@ -620,7 +630,9 @@ class RecepView implements ActionListener {
 
         private void createService() {
             if (createServicePatientIDInput.getText().equals("") ||
-                    createServiceDateInput.getText().equals("")) { return; }
+                    createServiceDateInput.getText().equals("")) {
+                return;
+            }
 
             String reasonForVisit;
             String roomNumber;
@@ -628,14 +640,16 @@ class RecepView implements ActionListener {
             if (createServiceType.getSelectedItem().toString().equals("Service Category") ||
                     createServiceType.getSelectedItem().toString().equals("--------")) {
                 reasonForVisit = "";
+            } else {
+                reasonForVisit = createServiceType.getSelectedItem().toString();
             }
-            else { reasonForVisit = createServiceType.getSelectedItem().toString(); }
 
             if (createServiceRoomNumberInput.getSelectedItem().toString().equals("Room #") ||
                     createServiceRoomNumberInput.getSelectedItem().toString().equals("--------")) {
                 roomNumber = "";
+            } else {
+                roomNumber = createServiceRoomNumberInput.getSelectedItem().toString();
             }
-            else { roomNumber = createServiceRoomNumberInput.getSelectedItem().toString(); }
 
             try {
                 Statement checkStaffID = con.createStatement();
@@ -722,8 +736,7 @@ class RecepView implements ActionListener {
                     // Close the statement
                     getStaffProvideService.close();
                 }
-            }
-            catch (SQLException ex) {
+            } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Message: " + ex.getMessage());
             }
         }
@@ -785,8 +798,7 @@ class RecepView implements ActionListener {
 
                 // Close the statement
                 getAllStaffProvideServicesStatement.close();
-            }
-            catch (SQLException ex) {
+            } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Message: " + ex.getMessage());
             }
         }
@@ -807,12 +819,12 @@ class RecepView implements ActionListener {
 
                     JOptionPane.showMessageDialog(null, "Average cost of the most " +
                             "expensive service type: $" + roundedResult);
+                } else {
+                    JOptionPane.showMessageDialog(null, "No results.");
                 }
-                else { JOptionPane.showMessageDialog(null, "No results."); }
 
                 getMaxAvgCostStatement.close();
-            }
-            catch(SQLException ex) {
+            } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Message: " + ex.getMessage());
             }
         }
@@ -833,14 +845,20 @@ class RecepView implements ActionListener {
 
                     JOptionPane.showMessageDialog(null, "Average cost of the cheapest " +
                             "service type: $" + roundedResult);
+                } else {
+                    JOptionPane.showMessageDialog(null, "No results.");
                 }
-                else { JOptionPane.showMessageDialog(null, "No results."); }
 
                 getMinAvgCostStatement.close();
-            }
-            catch(SQLException ex) {
+            } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Message: " + ex.getMessage());
             }
         }
+
+    }
+
+    private void goToLogin(){
+        mainFrame.dispose();
+        new Login(con);
     }
 }

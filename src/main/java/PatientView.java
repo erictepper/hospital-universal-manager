@@ -18,10 +18,12 @@ public class PatientView implements ActionListener {
     private String phoneNumber;
 
     // Creates all class-wide interface panels
+    private JFrame mainFrame;
     private JLabel addressLabel;
     private JLabel phoneNumberLabel;
     private JComboBox<String> updateCategory;
     private JTextField updateInput;
+
 
     PatientView(Connection inputCon, String inputUsername) {
         con = inputCon;
@@ -37,7 +39,7 @@ public class PatientView implements ActionListener {
         try {
             Statement getPatientInfo = con.createStatement();
             ResultSet resultPatientInfo = getPatientInfo.executeQuery("SELECT PatientName, DateOfBirth, "
-                + "BloodType, Sex, Address, PhoneNumber FROM Patient WHERE PatientIDNumber = '" + patientID + "'");
+                    + "BloodType, Sex, Address, PhoneNumber FROM Patient WHERE PatientIDNumber = '" + patientID + "'");
             resultPatientInfo.next();
             name = resultPatientInfo.getString("PatientName");
             dateOfBirth = resultPatientInfo.getString("DateOfBirth");
@@ -57,7 +59,7 @@ public class PatientView implements ActionListener {
         }
 
         /* CREATES THE INTERFACE */
-        JFrame mainFrame = new JFrame("Patient View");
+        mainFrame = new JFrame("Patient View");
         JPanel patientViewPanel = new JPanel();
 
         // Creates user info labels
@@ -74,6 +76,7 @@ public class PatientView implements ActionListener {
         updateCategory = new JComboBox<>(updateCategories);
         updateInput = new JTextField(40);
         JButton submitUpdateButton = new JButton("Submit");
+        JButton logoutButton = new JButton("Logout");
 
         // Creates query buttons
         JButton medicalRecordsButton = new JButton("Medical Records");
@@ -96,6 +99,7 @@ public class PatientView implements ActionListener {
         addressLabel.setBounds(30, 90, 300, 20);
         phoneNumberLabel.setBounds(330, 90, 250, 20);
 
+
         // Information update layout
         updateInfoLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 14));
         updateInfoLabel.setBounds(30, 150, 300, 20);
@@ -106,6 +110,9 @@ public class PatientView implements ActionListener {
         submitUpdateButton.setBounds(520, 175, 80, 20);
         submitUpdateButton.addActionListener(this);
         submitUpdateButton.setActionCommand("submitUpdate");
+        logoutButton.setBounds(580, 30, 80, 20);
+        logoutButton.addActionListener(this);
+        logoutButton.setActionCommand("logout");
 
         // Query button layout
         medicalRecordsButton.setBounds(410, 300,140,20);
@@ -133,6 +140,7 @@ public class PatientView implements ActionListener {
         // Adds the query buttons to the interface
         patientViewPanel.add(medicalRecordsButton);
         patientViewPanel.add(paymentHistoryButton);
+        patientViewPanel.add(logoutButton);
 
 
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -162,6 +170,9 @@ public class PatientView implements ActionListener {
                 break;
             case "getRecords":
                 getRecords();
+                break;
+            case "logout":
+                goToLogin();
                 break;
             default:
                 getPaymentHistory();
@@ -310,5 +321,10 @@ public class PatientView implements ActionListener {
         catch(SQLException ex) {
             JOptionPane.showMessageDialog(null, "Message: " + ex.getMessage());
         }
+    }
+
+    private void goToLogin(){
+        mainFrame.dispose();
+        new Login(con);
     }
 }
