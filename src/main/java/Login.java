@@ -1,12 +1,14 @@
 // We need to import the java.sql package to use JDBC
 import java.sql.*;
 
+// For reading from login info file.
+import java.io.*;
+import java.util.*;
 
-// To create the interface
+// To create the interface.
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-// import java.util.*;
 
 public class Login implements ActionListener {
     // Connection to Oracle
@@ -20,8 +22,6 @@ public class Login implements ActionListener {
 
 
     Login(Connection inputConnection) {
-        con = inputConnection;
-
         // Creates all of the interface panels
         mainFrame = new JFrame("User Login");
         JPanel loginPanel = new JPanel();
@@ -69,6 +69,21 @@ public class Login implements ActionListener {
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setVisible(true);
 
+        // Use the input connection if it is valid, otherwise create a new connection.
+        try {
+            if (inputConnection != null && inputConnection.isValid(0)) {
+                this.con = inputConnection;
+            } else if (!connect()) {
+                JOptionPane.showMessageDialog(null, "Connection to Heroku database failed!");
+                System.out.println("Connection to Heroku database failed!");
+                System.exit(1);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Message: " + e.getMessage());
+            System.out.println("Message: " + e.getMessage());
+            System.exit(1);
+        }
+
         // anonymous inner class for closing the window
         mainFrame.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
@@ -80,6 +95,39 @@ public class Login implements ActionListener {
                 }
             }
         });
+    }
+
+    public static void main(String[] args) {
+        new Login(null);
+    }
+
+    private boolean connect() {
+        Properties loginInfo = new Properties();
+
+        // Loads the confidential db-login.ini file.
+        try {
+            InputStream loginFileStream = getClass().getResourceAsStream("db-login.ini");
+            loginInfo.load(loginFileStream);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "The file containing " +
+                "the Heroku database login info (db-login.ini) was not found in the resources folder.");
+            return false;
+        }
+
+        // Reads the login info from the db-login.ini file.
+        String connectURL = loginInfo.getProperty("connectURL");
+        String username = loginInfo.getProperty("username");
+        String password = loginInfo.getProperty("password");
+
+        // Attempts to connect to the Heroku PostgreSQL database.
+        try {
+            con = DriverManager.getConnection(connectURL, username, password);
+            return true;
+        }
+        catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Message: " + ex.toString());
+            return false;
+        }
     }
 
     private String login(String userType, String username, String password) {

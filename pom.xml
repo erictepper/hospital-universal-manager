@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.github.erictepper.hospital-universal-manager</groupId>
   <artifactId>hospital-universal-manager</artifactId>
-  <version>0.1</version>
+  <version>0.2</version>
   <name>Hospital Universal Manager</name>
   <url>https://github.com/erictepper/hospital-universal-manager</url>
 
@@ -62,6 +62,7 @@
           <exclude>postgresql-42.2.6.jar</exclude>
           <exclude>database-setup.sql</exclude>
           <exclude>er-diagram.jpg</exclude>
+          <exclude>Login Screen Sketch.png</exclude>
         </excludes>
       </resource>
     </resources>
@@ -80,7 +81,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>HerokuLogin</mainClass>
+              <mainClass>Login</mainClass>
             </manifest>
           </archive>
           <descriptorRefs>
