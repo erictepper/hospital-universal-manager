@@ -19,6 +19,7 @@ the PostgreSQL driver in order to access the database.
 
 **Version 0.2:** 
 * **0.2.1:** Removed the HerokuLogin class/view and connected to the Heroku database directly from the Login class. 
+* **0.2.2:** Added logout button for all the user types, so one does not have to close the application to re-login.
 
 ### To-do
 ###### Features to Add

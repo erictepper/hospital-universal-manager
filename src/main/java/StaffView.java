@@ -20,6 +20,7 @@ class StaffView implements ActionListener {
     private JPasswordField updatePasswordInput;
 
     // Medical records query
+    private JFrame mainFrame;
     private JTextField medicalRecordsPatientIDInput;
     private JCheckBox showMedicalRecordNumberCheckbox;
     private JCheckBox showMedicalRecordTypeCheckbox;
@@ -54,7 +55,7 @@ class StaffView implements ActionListener {
         }
 
         /* CREATES THE INTERFACE */
-        JFrame mainFrame = new JFrame("Staff View");
+        mainFrame = new JFrame("Staff View");
         JPanel staffViewPanel = new JPanel();
 
         // Creates user info labels
@@ -82,6 +83,7 @@ class StaffView implements ActionListener {
         showMedicalRecordAllCheckbox = new JCheckBox();
         JLabel showMedicalRecordAllLabel = new JLabel("All");
         JButton searchMedicalRecordsButton = new JButton("Search");
+        JButton logoutButton = new JButton("Logout");
 
         // Creates the patient statistics objects
         JLabel patientStatisticsLabel = new JLabel("PATIENT STATISTICS");
@@ -148,6 +150,9 @@ class StaffView implements ActionListener {
         showMedicalRecordAllCheckbox.setActionCommand("showAllPress");
         showMedicalRecordAllLabel.setFont(checkBoxLabelFont);
         showMedicalRecordAllLabel.setBounds(365, 250, 20, 20);
+        logoutButton.setBounds(580, 30, 80, 20);
+        logoutButton.addActionListener(this);
+        logoutButton.setActionCommand("logout");
 
         // Patient statistics layout
         patientStatisticsLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 14));
@@ -188,6 +193,7 @@ class StaffView implements ActionListener {
         staffViewPanel.add(showMedicalRecordDateLabel);
         staffViewPanel.add(showMedicalRecordAllCheckbox);
         staffViewPanel.add(showMedicalRecordAllLabel);
+        staffViewPanel.add(logoutButton);
 
         // Adds the patient statistics objects to the interface
         staffViewPanel.add(patientStatisticsLabel);
@@ -254,6 +260,10 @@ class StaffView implements ActionListener {
 
             case "neediestPatients":
                 neediestPatients();
+                break;
+
+            case "logout":
+                goToLogin();
                 break;
         }
     }
@@ -391,5 +401,9 @@ class StaffView implements ActionListener {
         catch(SQLException ex) {
             JOptionPane.showMessageDialog(null, "Message: " + ex.getMessage());
         }
+    }
+    private void goToLogin(){
+        mainFrame.dispose();
+        new Login(con);
     }
 }
