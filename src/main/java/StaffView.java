@@ -280,7 +280,6 @@ class StaffView implements ActionListener {
                 JOptionPane.showMessageDialog(null, "Staff member " + staffID +
                         " does not exist!");
             }
-            con.commit();
             inputSQLStatement.close();
             updatePasswordInput.setText("");
         }
