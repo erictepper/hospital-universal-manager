@@ -36,3 +36,4 @@ using a drop-down box) on the log-in view.
 ###### Bugs to Fix
 1. Fix StringIndexOutOfBoundsException when no columns are selected under RecepView.searchRecords() and 
 StaffView.searchRecords().
+2. Double check that all SQL statements are closed.
