@@ -273,7 +273,8 @@ class StaffView implements ActionListener {
 
         try {
             PreparedStatement inputSQLStatement = con.prepareStatement("UPDATE HospitalStaff SET " +
-                    "StaffPassword = '" + inputPassword + "' WHERE StaffIDNumber = '" + staffID + "'");
+                    "StaffPassword = ? WHERE StaffIDNumber = '" + staffID + "'");
+            inputSQLStatement.setString(1, inputPassword);
             int rowCount = inputSQLStatement.executeUpdate();
             if (rowCount == 0) {
                 JOptionPane.showMessageDialog(null, "Staff member " + staffID +
@@ -313,10 +314,11 @@ class StaffView implements ActionListener {
         }
 
         try {
-            Statement getMedicalRecordsSQLStatement = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
+            PreparedStatement getMedicalRecordsSQLStatement = con.prepareStatement("SELECT " + fetchAll +
+                    " FROM MedicalRecord WHERE PatientIDNumber = ?", ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_READ_ONLY);
-            ResultSet medicalRecordResults = getMedicalRecordsSQLStatement.executeQuery(("SELECT " + fetchAll +
-                    " FROM MedicalRecord WHERE PatientIDNumber = '" + inputPatientID + "'"));
+            getMedicalRecordsSQLStatement.setString(1, inputPatientID);
+            ResultSet medicalRecordResults = getMedicalRecordsSQLStatement.executeQuery();
 
             if (medicalRecordResults.next()) {
                 medicalRecordResults.previous();
@@ -349,11 +351,11 @@ class StaffView implements ActionListener {
 
     private void countPatients(String dateInput) {
         try {
-            Statement countPatientsStatement = con.createStatement();
-            ResultSet countPatientsResults = countPatientsStatement.executeQuery("SELECT " +
-                    "COUNT(PatientIDNumber) FROM ServiceBooking WHERE DateOfIntake >= " +
-                    "TO_DATE('" + dateInput + "', " +
-                    "'YYYY-MM-DD HH24:MI:SS')");
+            PreparedStatement countPatientsStatement = con.prepareStatement("SELECT " +
+                "COUNT(PatientIDNumber) FROM ServiceBooking WHERE DateOfIntake >= " +
+                "TO_TIMESTAMP(?, 'YYYY-MM-DD HH24:MI:SS')");
+            countPatientsStatement.setString(1, dateInput);
+            ResultSet countPatientsResults = countPatientsStatement.executeQuery();
 
             if (countPatientsResults.next()) {
                 JOptionPane.showMessageDialog(null,
