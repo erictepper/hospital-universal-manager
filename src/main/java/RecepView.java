@@ -667,13 +667,13 @@ class RecepView implements ActionListener {
                 checkStaffID.close();
 
                 PreparedStatement createServiceStatement = con.prepareStatement("INSERT INTO ServiceBooking " +
-                    "VALUES (?, TO_DATE(?, 'YYYY-MM-DD HH24:MI:SS'), ?, TO_DATE(?, 'YYYY-MM-DD HH24:MI:SS'), ?, ?)");
+                    "VALUES (?, ?, ?, ?, ?, ?)");
                 createServiceStatement.setString(1, roomNumber);
                 createServiceStatement.setString(2, createServiceDateInput.getText());
                 createServiceStatement.setString(3, createServicePatientIDInput.getText());
                 createServiceStatement.setString(4, createServiceDepartureDateInput.getText());
                 createServiceStatement.setString(5, reasonForVisit);
-                createServiceStatement.setString(6, createServiceCostInput.getText());
+                createServiceStatement.setInt(6, Integer.parseInt(createServiceCostInput.getText()));
 
                 int rowCount = createServiceStatement.executeUpdate();
                 if (rowCount == 0) {
@@ -682,15 +682,12 @@ class RecepView implements ActionListener {
                     return;
                 }
 
-                // commit work
-                con.commit();
-
                 createServiceStatement.close();
 
-                Statement getServicesForPatient = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
-                        ResultSet.CONCUR_READ_ONLY);
-                ResultSet servicesForPatientResults = getServicesForPatient.executeQuery("SELECT * FROM " +
-                        "ServiceBooking WHERE PatientIDNumber = '" + createServicePatientIDInput.getText() + "'");
+                PreparedStatement getServicesForPatient = con.prepareStatement("SELECT * FROM ServiceBooking " +
+                        "WHERE PatientIDNumber = ?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+                getServicesForPatient.setString(1, createServicePatientIDInput.getText());
+                ResultSet servicesForPatientResults = getServicesForPatient.executeQuery();
 
                 // Create and set up the window.
                 JFrame frame = new JFrame(createServicePatientIDInput.getText() + " Service Bookings");
@@ -709,9 +706,10 @@ class RecepView implements ActionListener {
 
                 if (!createServiceStaffIDInput.getText().equals("")) {
                     PreparedStatement createStaffProvideServiceStatement = con.prepareStatement("INSERT INTO " +
-                            "StaffProvideService VALUES ('" + createServiceStaffIDInput.getText() + "', '" +
-                            roomNumber + "', TO_DATE('" + createServiceDateInput.getText() + "', " +
-                            "'YYYY-MM-DD HH24:MI:SS'))");
+                            "StaffProvideService VALUES (?, ?, ?)");
+                    createStaffProvideServiceStatement.setString(1, createServiceStaffIDInput.getText());
+                    createStaffProvideServiceStatement.setString(2, roomNumber);
+                    createStaffProvideServiceStatement.setString(3, createServiceDateInput.getText());
                     int rowCount2 = createStaffProvideServiceStatement.executeUpdate();
                     if (rowCount2 == 0) {
                         JOptionPane.showMessageDialog(null, "Staff ID does not exist! " +
@@ -719,15 +717,13 @@ class RecepView implements ActionListener {
                         return;
                     }
 
-                    // commit work
-                    con.commit();
-
                     createStaffProvideServiceStatement.close();
 
-                    Statement getStaffProvideService = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    PreparedStatement getStaffProvideService = con.prepareStatement("SELECT * FROM " +
+                            "StaffProvideService WHERE StaffIDNumber = ?", ResultSet.TYPE_SCROLL_INSENSITIVE,
                             ResultSet.CONCUR_READ_ONLY);
-                    ResultSet staffProvideServiceResults = getStaffProvideService.executeQuery("SELECT * FROM " +
-                            "StaffProvideService WHERE StaffIDNumber = '" + createServiceStaffIDInput.getText() + "'");
+                    getStaffProvideService.setString(1, createServiceStaffIDInput.getText());
+                    ResultSet staffProvideServiceResults = getStaffProvideService.executeQuery();
 
                     // Create and set up the window.
                     JFrame frame2 = new JFrame(createServiceStaffIDInput.getText() + " Service Bookings");
@@ -752,9 +748,9 @@ class RecepView implements ActionListener {
         private void cancelService() {
             try {
                 PreparedStatement cancelServiceSQLStatement = con.prepareStatement("DELETE FROM ServiceBooking " +
-                        "WHERE PatientIDNumber = '" + cancelServicePatientIDInput.getText() + "' " +
-                        "AND DateOfIntake = TO_DATE('" + cancelServiceDateInput.getText() + "', " +
-                        "'YYYY-MM-DD HH24:MI:SS')");
+                        "WHERE PatientIDNumber = ? AND DateOfIntake = ?");
+                cancelServiceSQLStatement.setString(1, cancelServicePatientIDInput.getText());
+                cancelServiceSQLStatement.setString(2, cancelServiceDateInput.getText());
                 int rowCount = cancelServiceSQLStatement.executeUpdate();
 
                 if (rowCount == 0) {
@@ -763,14 +759,13 @@ class RecepView implements ActionListener {
                     return;
                 }
 
-                con.commit();
-
                 cancelServiceSQLStatement.close();
 
-                Statement getPatientServicesStatement = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
+                PreparedStatement getPatientServicesStatement = con.prepareStatement("SELECT * FROM " +
+                        "ServiceBooking WHERE PatientIDNumber = ?", ResultSet.TYPE_SCROLL_INSENSITIVE,
                         ResultSet.CONCUR_READ_ONLY);
-                ResultSet patientServicesResults = getPatientServicesStatement.executeQuery("SELECT * FROM " +
-                        "ServiceBooking WHERE PatientIDNumber = '" + cancelServicePatientIDInput.getText() + "'");
+                getPatientServicesStatement.setString(1, cancelServicePatientIDInput.getText());
+                ResultSet patientServicesResults = getPatientServicesStatement.executeQuery();
 
                 // Create and set up the window.
                 JFrame frame = new JFrame(cancelServicePatientIDInput.getText() + " Service Bookings");
