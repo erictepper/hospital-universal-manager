@@ -1,6 +1,8 @@
 # Hospital Universal Manager
 
 ### General Info
+Version 0.2.3
+
 An application designed to manage aspects of day-to-day operations in a hypothetical hospital, including patient and 
 staff information record-keeping, medical record-keeping, service/appointment booking, and transactional book-keeping.
 
@@ -20,6 +22,7 @@ the PostgreSQL driver in order to access the database.
 **Version 0.2:** 
 * **0.2.1:** Removed the HerokuLogin class/view and connected to the Heroku database directly from the Login class. 
 * **0.2.2:** Added logout button for all the user types, so one does not have to close the application to re-login.
+* **0.2.3:** Fixed PreparedStatements to prevent malicious SQL injection. 
 
 ### To-do
 ###### Features to Add
@@ -29,6 +32,5 @@ the PostgreSQL driver in order to access the database.
 using a drop-down box) on the log-in view. 
 
 ###### Bugs to Fix
-1. Rewrite PreparedStatements to prevent malicious SQL injection. 
-2. Fix "Patients scheduled for all services" query under the StaffView. 
-3. Fix StringIndexOutOfBoundsException when no columns are selected under StaffView.searchRecords().
+1. Fix "Patients scheduled for all services" query under the StaffView. 
+2. Fix StringIndexOutOfBoundsException when no columns are selected under StaffView.searchRecords().
