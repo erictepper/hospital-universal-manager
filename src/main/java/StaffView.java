@@ -29,7 +29,7 @@ class StaffView implements ActionListener {
     private JCheckBox showMedicalRecordAllCheckbox;
 
     // Patient statistics
-    JTextField countPatientsDateInput;
+    private JTextField countPatientsDateInput;
 
     StaffView(Connection inputCon, String inputUsername) {
         con = inputCon;
