@@ -214,14 +214,14 @@ public class PatientView implements ActionListener {
 
         // Makes the update
         try {
-            PreparedStatement inputSQLStatement = con.prepareStatement("UPDATE Patient SET " + category + " = '" +
-                    input + "' WHERE PatientIDNumber = '" + patientID + "'");
+            PreparedStatement inputSQLStatement = con.prepareStatement("UPDATE Patient SET " + category + " = ? " +
+                "WHERE PatientIDNumber = '" + patientID + "'");
+            inputSQLStatement.setString(1, input);
             int rowCount = inputSQLStatement.executeUpdate();
             if (rowCount == 0) {
                 JOptionPane.showMessageDialog(null, "Patient " + patientID +
                         " does not exist!");
             }
-            con.commit();
             inputSQLStatement.close();
             if (category.equals("Address")) {
                 address = input;
