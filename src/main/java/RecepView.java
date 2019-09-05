@@ -655,6 +655,8 @@ class RecepView implements ActionListener {
             }
 
             try {
+                // Checks to see if the staff exists before creating the appointment, since the appointment is created
+                // in two different tables, where the first one does not require a staff input. 
                 PreparedStatement checkStaffID = con.prepareStatement("SELECT StaffName FROM HospitalStaff " +
                     "WHERE StaffIDNumber = ?");
                 checkStaffID.setString(1, createServiceStaffIDInput.getText());
