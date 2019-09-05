@@ -29,5 +29,6 @@ the PostgreSQL driver in order to access the database.
 using a drop-down box) on the log-in view. 
 
 ###### Bugs to Fix
-1. Fix "Patients scheduled for all services" query under the StaffView. 
-2. Fix StringIndexOutOfBoundsException when no columns are selected under StaffView.searchRecords().
+1. Rewrite PreparedStatements to prevent malicious SQL injection. 
+2. Fix "Patients scheduled for all services" query under the StaffView. 
+3. Fix StringIndexOutOfBoundsException when no columns are selected under StaffView.searchRecords().
