@@ -299,7 +299,7 @@ class RecepView implements ActionListener {
                 JOptionPane.showMessageDialog(null, "Staff member " + recepID +
                         " does not exist!");
             }
-            con.commit();
+
             inputSQLStatement.close();
             updatePasswordInput.setText("");
         }
