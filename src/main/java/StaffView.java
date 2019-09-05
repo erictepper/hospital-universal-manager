@@ -302,7 +302,7 @@ class StaffView implements ActionListener {
 
         String fetchAll = recordNumber + recordCategory + recordDescription + recordDate;
 
-        if (fetchAll.length() == 6) {
+        if (fetchAll.length() == 0) {
             JOptionPane.showMessageDialog(null, "No options have been selected!");
             return;
         }
