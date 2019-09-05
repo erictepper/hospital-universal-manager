@@ -30,6 +30,7 @@ the PostgreSQL driver in order to access the database.
 2. Change log-in interface. 
 3. Use regular expressions to evaluate whether user is Patient, Staff, or Receptionist (rather than 
 using a drop-down box) on the log-in view. 
+4. Use regular expressions to check input for update queries. 
 
 ###### Bugs to Fix
 1. Fix "Patients scheduled for all services" query under the StaffView. 
