@@ -205,6 +205,7 @@ class RecepView implements ActionListener {
         recepViewPanel.add(mostUnderstaffedPosition);
         recepViewPanel.add(mostOverstaffedPosition);
         recepViewPanel.add(averageStaffNumberPerPosition);
+        recepViewPanel.add(serviceBooking);
 
         recepViewPanel.add(logoutButton);
 
@@ -291,7 +292,8 @@ class RecepView implements ActionListener {
 
         try {
             PreparedStatement inputSQLStatement = con.prepareStatement("UPDATE HospitalStaff SET " +
-                    "StaffPassword = '" + inputPassword + "' WHERE StaffIDNumber = '" + recepID + "'");
+                    "StaffPassword = ? WHERE StaffIDNumber = '" + recepID + "'");
+            inputSQLStatement.setString(1, inputPassword);
             int rowCount = inputSQLStatement.executeUpdate();
             if (rowCount == 0) {
                 JOptionPane.showMessageDialog(null, "Staff member " + recepID +
@@ -331,10 +333,11 @@ class RecepView implements ActionListener {
         }
 
         try {
-            Statement getMedicalRecordsSQLStatement = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
+            PreparedStatement getMedicalRecordsSQLStatement = con.prepareStatement("SELECT " + fetchAll +
+                    " FROM MedicalRecord WHERE PatientIDNumber = ?", ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_READ_ONLY);
-            ResultSet medicalRecordResults = getMedicalRecordsSQLStatement.executeQuery(("SELECT " + fetchAll +
-                    " FROM MedicalRecord WHERE PatientIDNumber = '" + inputPatientID + "'"));
+            getMedicalRecordsSQLStatement.setString(1, inputPatientID);
+            ResultSet medicalRecordResults = getMedicalRecordsSQLStatement.executeQuery();
 
             if (medicalRecordResults.next()) {
                 medicalRecordResults.previous();
@@ -652,9 +655,10 @@ class RecepView implements ActionListener {
             }
 
             try {
-                Statement checkStaffID = con.createStatement();
-                ResultSet staffIDCheckResults = checkStaffID.executeQuery("SELECT StaffName FROM HospitalStaff " +
-                        "WHERE StaffIDNumber = '" + createServiceStaffIDInput.getText() + "'");
+                PreparedStatement checkStaffID = con.prepareStatement("SELECT StaffName FROM HospitalStaff " +
+                    "WHERE StaffIDNumber = ?");
+                checkStaffID.setString(1, createServiceStaffIDInput.getText());
+                ResultSet staffIDCheckResults = checkStaffID.executeQuery();
                 if (!staffIDCheckResults.next()) {
                     JOptionPane.showMessageDialog(null, "StaffID does not exist!");
                     return;
@@ -663,10 +667,14 @@ class RecepView implements ActionListener {
                 checkStaffID.close();
 
                 PreparedStatement createServiceStatement = con.prepareStatement("INSERT INTO ServiceBooking " +
-                        "VALUES ('" + roomNumber + "', TO_DATE('" + createServiceDateInput.getText() + "', " +
-                        "'YYYY-MM-DD HH24:MI:SS'), '" + createServicePatientIDInput.getText() + "', TO_DATE('" +
-                        createServiceDepartureDateInput.getText() + "', 'YYYY-MM-DD HH24:MI:SS'), '" +
-                        reasonForVisit + "', " + createServiceCostInput.getText() + ")");
+                    "VALUES (?, TO_DATE(?, 'YYYY-MM-DD HH24:MI:SS'), ?, TO_DATE(?, 'YYYY-MM-DD HH24:MI:SS'), ?, ?)");
+                createServiceStatement.setString(1, roomNumber);
+                createServiceStatement.setString(2, createServiceDateInput.getText());
+                createServiceStatement.setString(3, createServicePatientIDInput.getText());
+                createServiceStatement.setString(4, createServiceDepartureDateInput.getText());
+                createServiceStatement.setString(5, reasonForVisit);
+                createServiceStatement.setString(6, createServiceCostInput.getText());
+
                 int rowCount = createServiceStatement.executeUpdate();
                 if (rowCount == 0) {
                     JOptionPane.showMessageDialog(null, "Patient ID does not exist! " +
