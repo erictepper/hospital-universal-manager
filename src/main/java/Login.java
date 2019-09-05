@@ -131,14 +131,15 @@ public class Login implements ActionListener {
     }
 
     private String login(String userType, String username, String password) {
-        Statement getLoginInfoForUser;
+        PreparedStatement getLoginInfoForUser;
         ResultSet resultLoginInfo;
 
         if (userType.equals("Patient")) {
             try {
-                getLoginInfoForUser = con.createStatement();
-                resultLoginInfo = getLoginInfoForUser.executeQuery("SELECT PatientPassword FROM Patient WHERE " +
-                        "PatientIDNumber = '" + username + "'");
+                getLoginInfoForUser = con.prepareStatement("SELECT PatientPassword FROM Patient WHERE " +
+                    "PatientIDNumber = ?");
+                getLoginInfoForUser.setString(1, username);
+                resultLoginInfo = getLoginInfoForUser.executeQuery();
 
                 // Checks to see if the user does not exist
                 if (!resultLoginInfo.next()) {
@@ -165,9 +166,10 @@ public class Login implements ActionListener {
 
         if (userType.equals("Receptionist")) {
             try {
-                getLoginInfoForUser = con.createStatement();
-                resultLoginInfo = getLoginInfoForUser.executeQuery("SELECT EmploymentPosition, StaffPassword " +
-                        "FROM HospitalStaff WHERE StaffIDNumber = '" + username + "'");
+                getLoginInfoForUser = con.prepareStatement("SELECT EmploymentPosition, StaffPassword " +
+                    "FROM HospitalStaff WHERE StaffIDNumber = ?");
+                getLoginInfoForUser.setString(1, username);
+                resultLoginInfo = getLoginInfoForUser.executeQuery();
 
                 if (!resultLoginInfo.next()) {
                     JOptionPane.showMessageDialog(null, "UserID does not exist!");
@@ -194,9 +196,11 @@ public class Login implements ActionListener {
 
         else {
             try {
-                getLoginInfoForUser = con.createStatement();
-                resultLoginInfo = getLoginInfoForUser.executeQuery("SELECT EmploymentPosition, StaffPassword " +
-                        "FROM HospitalStaff WHERE StaffIDNumber = '" + username + "'");
+
+                getLoginInfoForUser = con.prepareStatement("SELECT EmploymentPosition, StaffPassword " +
+                    "FROM HospitalStaff WHERE StaffIDNumber = ?");
+                getLoginInfoForUser.setString(1, username);
+                resultLoginInfo = getLoginInfoForUser.executeQuery();
 
                 if (!resultLoginInfo.next()) {
                     JOptionPane.showMessageDialog(null, "UserID does not exist!");
