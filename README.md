@@ -34,6 +34,5 @@ using a drop-down box) on the log-in view.
 4. Use regular expressions to check input for update queries. 
 
 ###### Bugs to Fix
-1. Fix "Patients scheduled for all services" query under the StaffView. 
-2. Fix StringIndexOutOfBoundsException when no columns are selected under RecepView.searchRecords() and 
+1. Fix StringIndexOutOfBoundsException when no columns are selected under RecepView.searchRecords() and 
 StaffView.searchRecords().
