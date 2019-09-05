@@ -667,7 +667,8 @@ class RecepView implements ActionListener {
                 checkStaffID.close();
 
                 PreparedStatement createServiceStatement = con.prepareStatement("INSERT INTO ServiceBooking " +
-                    "VALUES (?, ?, ?, ?, ?, ?)");
+                    "VALUES (?, TO_TIMESTAMP(?, 'YYYY-MM-DD HH24:MI:SS'), ?, " +
+                    "TO_TIMESTAMP(?, 'YYYY-MM-DD HH24:MI:SS'), ?, ?)");
                 createServiceStatement.setString(1, roomNumber);
                 createServiceStatement.setString(2, createServiceDateInput.getText());
                 createServiceStatement.setString(3, createServicePatientIDInput.getText());
@@ -706,7 +707,7 @@ class RecepView implements ActionListener {
 
                 if (!createServiceStaffIDInput.getText().equals("")) {
                     PreparedStatement createStaffProvideServiceStatement = con.prepareStatement("INSERT INTO " +
-                            "StaffProvideService VALUES (?, ?, ?)");
+                            "StaffProvideService VALUES (?, ?, TO_TIMESTAMP(?, 'YYYY-MM-DD HH24:MI:SS'))");
                     createStaffProvideServiceStatement.setString(1, createServiceStaffIDInput.getText());
                     createStaffProvideServiceStatement.setString(2, roomNumber);
                     createStaffProvideServiceStatement.setString(3, createServiceDateInput.getText());
@@ -748,7 +749,7 @@ class RecepView implements ActionListener {
         private void cancelService() {
             try {
                 PreparedStatement cancelServiceSQLStatement = con.prepareStatement("DELETE FROM ServiceBooking " +
-                        "WHERE PatientIDNumber = ? AND DateOfIntake = ?");
+                        "WHERE PatientIDNumber = ? AND DateOfIntake = TO_TIMESTAMP(?, 'YYYY-MM-DD HH24:MI:SS')");
                 cancelServiceSQLStatement.setString(1, cancelServicePatientIDInput.getText());
                 cancelServiceSQLStatement.setString(2, cancelServiceDateInput.getText());
                 int rowCount = cancelServiceSQLStatement.executeUpdate();
