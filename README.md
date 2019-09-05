@@ -35,4 +35,5 @@ using a drop-down box) on the log-in view.
 
 ###### Bugs to Fix
 1. Fix "Patients scheduled for all services" query under the StaffView. 
-2. Fix StringIndexOutOfBoundsException when no columns are selected under StaffView.searchRecords().
+2. Fix StringIndexOutOfBoundsException when no columns are selected under RecepView.searchRecords() and 
+StaffView.searchRecords().
