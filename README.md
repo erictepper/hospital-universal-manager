@@ -5,7 +5,7 @@ Version 1.0.0
 
 An application designed to manage aspects of day-to-day operations in a hypothetical hospital, including patient and 
 staff information record-keeping, medical record-keeping, service/appointment booking, and transactional book-keeping. 
-Class code can be found in [src/main/java](master/src/main/java).
+Class code can be found in [src/main/java](src/main/java).
 
 This project is a revitalized version of a project done for course CPSC 304 (Relational Databases) at The University 
 of British Columbia. 
