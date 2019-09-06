@@ -19,7 +19,7 @@ database and Oracle as the relational database management system.
 management system, since the previously-used university server was not accessible after the course was over. Installed 
 the PostgreSQL driver in order to access the database. 
 
-**Version 0.2:** 
+**Version 0.2:**  Bug fixes, added logout button to views, and removed now-unnecessary class. 
 * **0.2.1:** Removed the HerokuLogin class/view and connected to the Heroku database directly from the Login class. 
 * **0.2.2:** Added logout button for all the user types, so one does not have to close the application to re-login.
 * **0.2.3:** Fixed PreparedStatements to prevent malicious SQL injection, and fixed bug where Service booking button 
