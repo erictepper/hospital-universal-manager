@@ -29,11 +29,10 @@ was not displayed in the RecepView.
 
 ### To-do
 ###### Features to Add
-1. Add logout option to PatientView, RecepView, and StaffView. 
-2. Change log-in interface. 
-3. Use regular expressions to evaluate whether user is Patient, Staff, or Receptionist (rather than 
+1. Change log-in interface. 
+2. Use regular expressions to evaluate whether user is Patient, Staff, or Receptionist (rather than 
 using a drop-down box) on the log-in view. 
-4. Use regular expressions to check input for update queries. 
+3. Use regular expressions to check input for update queries. 
 
 ###### Bugs to Fix
 * No current known bugs.
