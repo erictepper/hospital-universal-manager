@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.github.erictepper.hospital-universal-manager</groupId>
   <artifactId>hospital-universal-manager</artifactId>
-  <version>0.2.4</version>
+  <version>0.2.5</version>
   <name>Hospital Universal Manager</name>
   <url>https://github.com/erictepper/hospital-universal-manager</url>
 
