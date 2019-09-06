@@ -1,7 +1,7 @@
 # Hospital Universal Manager
 
 ### General Info
-Version 0.2.4
+Version 0.2.5
 
 An application designed to manage aspects of day-to-day operations in a hypothetical hospital, including patient and 
 staff information record-keeping, medical record-keeping, service/appointment booking, and transactional book-keeping.
@@ -25,6 +25,7 @@ the PostgreSQL driver in order to access the database.
 * **0.2.3:** Fixed PreparedStatements to prevent malicious SQL injection, and fixed bug where Service booking button 
 was not displayed in the RecepView. 
 * **0.2.4:** RecepView and StaffView now correctly handle the case where no options are selected in searchRecords(). 
+* **0.2.5:** All opened SQL statements are now closed after use. 
 
 ### To-do
 ###### Features to Add
@@ -35,4 +36,4 @@ using a drop-down box) on the log-in view.
 4. Use regular expressions to check input for update queries. 
 
 ###### Bugs to Fix
-1. Double check that all SQL statements are closed.
+* No current known bugs.

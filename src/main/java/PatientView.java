@@ -47,6 +47,7 @@ public class PatientView implements ActionListener {
             sex = resultPatientInfo.getString("Sex");
             address = resultPatientInfo.getString("Address");
             phoneNumber = resultPatientInfo.getString("phoneNumber");
+            getPatientInfo.close();
         }
         catch(SQLException ex) {
             JOptionPane.showMessageDialog(null, "Message: " + ex.getMessage());
@@ -221,6 +222,8 @@ public class PatientView implements ActionListener {
             if (rowCount == 0) {
                 JOptionPane.showMessageDialog(null, "Patient " + patientID +
                         " does not exist!");
+                inputSQLStatement.close();
+                return;
             }
             inputSQLStatement.close();
             if (category.equals("Address")) {

@@ -47,6 +47,7 @@ class StaffView implements ActionListener {
             resultStaffInfo.next();
             name = resultStaffInfo.getString("StaffName");
             employmentPosition = resultStaffInfo.getString("EmploymentPosition");
+            getStaffInfo.close();
         }
         catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Message: " + ex.getMessage());
@@ -333,15 +334,15 @@ class StaffView implements ActionListener {
                 // Display the window.
                 frame.pack();
                 frame.setVisible(true);
-
-                // Close the statement
-                getMedicalRecordsSQLStatement.close();
             }
 
             else {
                 JOptionPane.showMessageDialog(null, "Patient ID does not exist! " +
                         "Try P########.");
             }
+
+            // Close the statement
+            getMedicalRecordsSQLStatement.close();
         }
         catch(SQLException ex) {
             JOptionPane.showMessageDialog(null, "Message: " + ex.getMessage());
@@ -394,10 +395,12 @@ class StaffView implements ActionListener {
                 // Display the window
                 frame.pack();
                 frame.setVisible(true);
-
-                // Close the statement
-                neediestPatientsStatement.close();
+            } else {
+                JOptionPane.showMessageDialog(null, "No patients scheduled for all services.");
             }
+
+            // Close the statement
+            neediestPatientsStatement.close();
         }
         catch(SQLException ex) {
             JOptionPane.showMessageDialog(null, "Message: " + ex.getMessage());

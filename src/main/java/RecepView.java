@@ -42,6 +42,7 @@ class RecepView implements ActionListener {
             resultStaffInfo.next();
             name = resultStaffInfo.getString("StaffName");
             employmentPosition = resultStaffInfo.getString("EmploymentPosition");
+            getStaffInfo.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Message: " + ex.getMessage());
             name = "";
@@ -353,15 +354,15 @@ class RecepView implements ActionListener {
                 // Display the window.
                 frame.pack();
                 frame.setVisible(true);
-
-                // Close the statement
-                getMedicalRecordsSQLStatement.close();
             }
 
             else {
                 JOptionPane.showMessageDialog(null, "Patient ID does not exist! " +
                         "Try P########.");
             }
+
+            // Close the statement
+            getMedicalRecordsSQLStatement.close();
         }
         catch(SQLException ex) {
             JOptionPane.showMessageDialog(null, "Message: " + ex.getMessage());
@@ -663,6 +664,7 @@ class RecepView implements ActionListener {
                 ResultSet staffIDCheckResults = checkStaffID.executeQuery();
                 if (!staffIDCheckResults.next()) {
                     JOptionPane.showMessageDialog(null, "StaffID does not exist!");
+                    checkStaffID.close();
                     return;
                 }
 
@@ -682,6 +684,7 @@ class RecepView implements ActionListener {
                 if (rowCount == 0) {
                     JOptionPane.showMessageDialog(null, "Patient ID does not exist! " +
                             "Try P########.");
+                    createServiceStatement.close();
                     return;
                 }
 
@@ -717,6 +720,7 @@ class RecepView implements ActionListener {
                     if (rowCount2 == 0) {
                         JOptionPane.showMessageDialog(null, "Staff ID does not exist! " +
                                 "Try S########.");
+                        createStaffProvideServiceStatement.close();
                         return;
                     }
 
