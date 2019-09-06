@@ -22,9 +22,8 @@ the PostgreSQL driver in order to access the database.
 **Version 0.2:**  Bug fixes, added logout button to views, and removed now-unnecessary class. 
 * **0.2.1:** Removed the HerokuLogin class/view and connected to the Heroku database directly from the Login class. 
 * **0.2.2:** Added logout button for all the user types, so one does not have to close the application to re-login.
-* **0.2.3:** Fixed PreparedStatements to prevent 
-[malicious SQL injection](https://imgs.xkcd.com/comics/exploits_of_a_mom.png), and fixed bug where Service booking 
-button was not displayed in the RecepView. 
+* **0.2.3:** Fixed PreparedStatements to prevent [malicious SQL injection](https://xkcd.com/327/), and fixed bug where 
+Service booking button was not displayed in the RecepView. 
 * **0.2.4:** RecepView and StaffView now correctly handle the case where no options are selected in searchRecords(). 
 * **0.2.5:** All opened SQL statements now get closed after use. 
 
