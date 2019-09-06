@@ -25,7 +25,7 @@ the PostgreSQL driver in order to access the database.
 * **0.2.3:** Fixed PreparedStatements to prevent malicious SQL injection, and fixed bug where Service booking button 
 was not displayed in the RecepView. 
 * **0.2.4:** RecepView and StaffView now correctly handle the case where no options are selected in searchRecords(). 
-* **0.2.5:** All opened SQL statements are now closed after use. 
+* **0.2.5:** All opened SQL statements now get closed after use. 
 
 ### To-do
 ###### Features to Add
