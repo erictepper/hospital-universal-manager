@@ -1,7 +1,7 @@
 # Hospital Universal Manager
 
 ### General Info
-Version 0.2.5
+Version 1.0.0
 
 An application designed to manage aspects of day-to-day operations in a hypothetical hospital, including patient and 
 staff information record-keeping, medical record-keeping, service/appointment booking, and transactional book-keeping.
@@ -26,6 +26,9 @@ the PostgreSQL driver in order to access the database.
 was not displayed in the RecepView. 
 * **0.2.4:** RecepView and StaffView now correctly handle the case where no options are selected in searchRecords(). 
 * **0.2.5:** All opened SQL statements now get closed after use. 
+
+**Version 1.0.0:** Packaged and deployed the fully functional Create-Read-Update-Delete (C.R.U.D.) hospital management 
+app in an executable .jar which can be downloaded and run on any system that has at least Java 8 installed. 
 
 ### To-do
 ###### Features to Add
