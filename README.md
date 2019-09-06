@@ -32,10 +32,11 @@ app in an executable .jar which can be downloaded and run on any system that has
 
 ### To-do
 ###### Features to Add
-1. Change log-in interface. 
-2. Use regular expressions to evaluate whether user is Patient, Staff, or Receptionist (rather than 
+1. Create download/use information. 
+2. Change log-in interface. 
+3. Use regular expressions to evaluate whether user is Patient, Staff, or Receptionist (rather than 
 using a drop-down box) on the log-in view. 
-3. Use regular expressions to check input for update queries. 
+4. Use regular expressions to check input for update queries. 
 
 ###### Bugs to Fix
 * No current known bugs.
