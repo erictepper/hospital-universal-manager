@@ -144,11 +144,13 @@ public class Login implements ActionListener {
                 // Checks to see if the user does not exist
                 if (!resultLoginInfo.next()) {
                     JOptionPane.showMessageDialog(null, "UserID does not exist!");
+                    getLoginInfoForUser.close();
                     return "false";
                 }
                 // If the user exists, check the input password against the password in the database
                 else {
                     String databasePassword = resultLoginInfo.getString("PatientPassword");
+                    getLoginInfoForUser.close();
                     if (password.equals(databasePassword)) {
                         return "patient";
                     }
@@ -173,12 +175,14 @@ public class Login implements ActionListener {
 
                 if (!resultLoginInfo.next()) {
                     JOptionPane.showMessageDialog(null, "UserID does not exist!");
+                    getLoginInfoForUser.close();
                     return "false";
                 }
                 else {
                     String employmentPosition = resultLoginInfo.getString("EmploymentPosition");
 
                     String databasePassword = resultLoginInfo.getString("StaffPassword");
+                    getLoginInfoForUser.close();
                     if ((password.equals(databasePassword))&&(employmentPosition.equals("Receptionist"))) {
                         return "receptionist";
                     }
@@ -204,12 +208,14 @@ public class Login implements ActionListener {
 
                 if (!resultLoginInfo.next()) {
                     JOptionPane.showMessageDialog(null, "UserID does not exist!");
+                    getLoginInfoForUser.close();
                     return "false";
                 }
                 else {
                     String employmentPosition = resultLoginInfo.getString("EmploymentPosition");
 
                     String databasePassword = resultLoginInfo.getString("StaffPassword");
+                    getLoginInfoForUser.close();
                     if ((password.equals(databasePassword))&&(!employmentPosition.equals("Receptionist"))) {
                         return "staff";
                     }
